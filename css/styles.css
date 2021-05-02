@@ -1,0 +1,10 @@
+body {background-color: black;}
+
+h1,p {
+  font-family: sans-serif;
+  color: white
+}
+
+.hyplink {
+    color: white
+}
