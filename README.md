@@ -1,3 +1,3 @@
 # EvelienVB.github.io
 
-This is a trial to commit and push a change.
+This repository has all files related to the github page which hosts my portfolio.
