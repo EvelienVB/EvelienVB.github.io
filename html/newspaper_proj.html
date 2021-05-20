@@ -175,15 +175,35 @@
     The hyperparameters of the algorithms such as for example the number of words for the vectorizer or the number of levels for the decision tree were tuned by using GridSearch 
     with crossvalidation to make sure that the performance was indicative for the entire dataset and not a subset. Often the performancce was a lot higher for the 
     training set compared to the test set which indicataed overfitting. Eventually, a linear support vector machine gave the best performance after hyperparameter tuning and 
-    this algorithm was then applied to the entire dataset. 
+    this algorithm was then applied to the entire dataset. <br><br>
+    The accuracy was on average 65% for the test data which I thought was quite high given that just the text of an article was the input data. Next to the accuracy
+    also the recall was assessed per newspaper. The recall is defined as the ratio between the true positves and the sum of the true positives and false negatives. When for 
+    example the Volkskrant is considered and the recall would be 76% it means that 76% of all Volkskrant articles were predicted as the Volkskrant while the other 24% was 
+    labeled as another newspaper. It was then interesting to look how this 24% was distributed over the other newspapers. Were most Trouw articles classified as the Volkskrant as would be 
+    expected from the axis above? Here the recall of the Volkskrant is shown for each of the analysed years together with how the distribution of newspapers was of the articles predicted incorrectly.
+    
+    <p><img src="../images/newspaper_proj/results_ml.svg" alt="Results ml"></p>
   
-   
+   First of all it is shown that the recall stays quite constant over the years. Up to 1960 the misclassified Volkskrant articles get classified evenly between Trouw, Algemeen Dagblad 
+   and Telegraaf. From 1960 the articles get more classified as Trouw which increases rapidly around 1970. It was found that around this time
+   there were changes in the signature of Trouw <a class="hyplink-source" href=#source_5>[5]</a>. It distanced itself from being an orthodox-protestant newspaper, as it was set up in the second world war. This changed the number of readers 
+   and the target group. It is interesting that these events seems to be observed in this analysis indicating that part of the new signature might also have been different use of language or topics. <br> <br>
+   Next to the recall it was then interesting to look at which words were actually most determinative for the classification. Here the 10 words with the highest importance are shown (of course translated from Dutch to English):
+  
+   <p><img src="../images/newspaper_proj/important_words.svg" alt="important words"></p>
+
+   The words are quite general. Maybe some newspapers would use more quotes indicated by "said" and "according" but it is difficult to really draw conclusions from this. <br> <br>
+   This first analysis led to a new question: <br>
+   <i> Is it really the language use which is different between the newspapers or is it the topics they write about?</i> <br>
+   If for example de Volkskrant only writes about politics and het Algemeen Dagblad only about sports it might be easy to classify based on this. In order to check this articles with similar
+   topic were grouped together. To determine if the topic was similar the similarity between the average word embedding vectors between two article was determined. When then the classification model for similar articles was applied the results were comparable to the results where all articles were used.
+   Another approach to this would be to sort the articles per topic by using for example an LDA model and see the distribution of topics over the different newspapers.
 
   </div>
 
   <h2>Flask app</h2>
   <div class=main-text-container>  
-  After the machine learning models were deployed another question arised; <br> <i>How can the results be made more intuitive and useful 
+  After the machine learning models were applied another question arised; <br> <i>How can the results be made more intuitive and useful 
   for a reader to inform themselves about biases in different newspapers?</i> <br><br>
   The answer to this question was a <a class="hyplink" href="http://newspaper-proj.herokuapp.com/">
   Flask app</a> (in Dutch) where people can look for a word (for example a Dutch political party) and find out the following: <br>
@@ -199,6 +219,9 @@
 
   <h2>Further steps</h2>
   <div class=main-text-container>  
+    After the 6 weeks the project was finished. By looking at specific words or people it was found that some newspapers refer to people differently. To focus more 
+    on the political aspect of newspapers as a next step the articles which mention a minister or prime ministers were obtained and it was studied in more detail how different newspapers refer to these people.
+    At the moment an interactive visualization about these results is created.
   </div>
 
   <h2>What I have learned</h2>
@@ -214,6 +237,7 @@
     [2] <a  id=source_2 class="hyplink" href=>https://www.ad.nl/binnenland/wat-stemmen-krantenlezers~a655e176/</a><br>
     [3] <a id=source_3 class="hyplink" href="https://www.scp.nl/publicaties/monitors/2019/03/29/burgerperspectieven-2019-1">https://www.scp.nl/publicaties/monitors/2019/03/29/burgerperspectieven-2019-1</a><br>
     [4] <a id=source_4 class="hyplink" href="https://www.denieuwereporter.nl/2017/09/hoe-populaire-en-kwaliteitskranten-van-elkaar-verschillen-in-verslaggeving/">https://www.denieuwereporter.nl/2017/09/hoe-populaire-en-kwaliteitskranten-van-elkaar-verschillen-in-verslaggeving/ </a><br>
+    [5] <a id=source_5 class="hyplink" href="https://nl.wikipedia.org/wiki/Trouw_(krant)">https://nl.wikipedia.org/wiki/Trouw_(krant) </a><br>
   </p>
 
 
